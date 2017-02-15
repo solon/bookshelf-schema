@@ -64,7 +64,7 @@ JavaScript
 
 - **[1]**: model is validated before save
 - **[2]**: alice.get('username') is called internally
-- **[3]**: password field is converted to special object when fetched from database.
+- **[3]**: password field is converted to a special object when fetched from database.
 
 Validation
 ----------
@@ -73,15 +73,15 @@ Validation
 
    :returns: Promise[Checkit.Error]
 
-Model method validate is called automatically before saving or may be called explicitly.
-It takes validation rules added to model by fields and passes them to Checkit_.
+The Model method :code:`validate` is called automatically before saving, or may be called explicitly.
+It takes validation rules added to the model by fields and passes them to Checkit_.
 
 You may override this method in your model to add custom validation logic.
 
 Base class
 ----------
 
-All fields are a subclass of Field class.
+All fields are a subclass of :code:`Field` class.
 
 .. class:: Field(name, options = {})
 
@@ -119,10 +119,10 @@ StringField
 Options:
 
 **minLength** | **min_length**: Integer
-    validate field value length is not lesser than minLength value
+    validate field value length is not lesser than :code:`minLength` value
 
 **maxLength** | **max_length**: Integer
-    validate field value length is not greater than maxLength value
+    validate field value length is not greater than :code:`maxLength` value
 
 EmailField
 ^^^^^^^^^^
@@ -130,7 +130,7 @@ EmailField
 .. class:: EmailField(name, options = {})
 
 
-Like a StringField with simple check that value looks like a email address.
+Like a :code:`StringField` with a simple check that the value looks like a email address.
 
 EncryptedStringField
 ^^^^^^^^^^^^^^^^^^^^
@@ -140,10 +140,10 @@ EncryptedStringField
 Options:
 
 **algorithm**: String | Function
-    Function: function that will take string, salt, iteration count and key length as an arguments and
-    return Promise with encrypted value
+    Function: function that will take string, salt, iteration count and key length as arguments and
+    return a Promise with an encrypted value
 
-    String: algorithm name passed to crypto.pbkdf2
+    String: algorithm name passed to :code:`crypto.pbkdf2`
 
 **iterations**: Integer
     iterations count passed to encryption function
@@ -155,22 +155,22 @@ Options:
     salt length in bytes
 
 **saltAlgorithm**: Function
-    function used to generate salt. Should take salt length as a parameter and return a Promise with
-    salt value
+    function used to generate salt. Should take the salt length as a parameter and return a Promise with
+    a salt value
 
 **minLength** | **min_length**: Integer
-    validate that unencrypted field value length is not lesser than minLength value
-    checked only when unencrypted value available
+    validate that the unencrypted field value length is not lesser than the :code:`minLength` value
+    checked only when the unencrypted value is available
 
 **maxLength** | **max_length**: Integer
-    validate that unencrypted field value length is not greater than maxLength value
-    checked only when unencrypted value available
+    validate that the unencrypted field value length is not greater than the :code:`maxLength` value
+    checked only when the unencrypted value is available
 
 .. class:: EncryptedString
 
-   Internal class used to handle encrypted value.
+   Internal class used to handle the encrypted value.
 
-EncryptedStringField value became EncryptedString when saved. It looses it's plain value.
+:code:`EncryptedStringField` value becomes :code:`EncryptedString` when saved. It loses its plain value.
 You should use method :code:`verify(value) : Promise` to verify value against saved string.
 
 NumberField
@@ -197,9 +197,9 @@ IntField
 
 .. class:: IntField(name, options = {})
 
-NumberField checked to be an Integer.
+:code:`NumberField` checked to be an :code:`Integer`.
 
-Options (in addition to options from NumberField):
+Options (in addition to options from :code:`NumberField`):
 
 **naturalNonZero** | **positive**: Boolean
     validates that field value is positive
@@ -213,29 +213,29 @@ FloatField
 .. class:: FloatField(name, options = {})
 
 
-NumberField checked to be Float
+:code:`NumberField` checked to be :code:`Float`
 
 BooleanField
 ^^^^^^^^^^^^
 
 .. class:: BooleanField(name, options = {})
 
-Converts value to Boolean
+Converts value to :code:`Boolean`
 
 DateTimeField
 ^^^^^^^^^^^^^
 
 .. class:: DateTimeField(name, options = {})
 
-Validates that value is a Date or a string than can be parsed as Date.
-Converts value to Date.
+Validates that value is a :code:`Date` or a string than can be parsed as :code:`Date`.
+Converts value to :code:`Date`.
 
 DateField
 ^^^^^^^^^
 
 .. class:: DateField(name, options = {})
 
-DateTimeField with stripped Time part.
+:code:`DateTimeField` with stripped :code:`Time` part.
 
 JSONField
 ^^^^^^^^^
@@ -250,10 +250,10 @@ Advanced validation
 
 - you may assign object instead of value to validation options::
 
-    minLength: {value: 10, message: '{{label}} is too short to be valid!'}
+    :code:`minLength: {value: 10, message: '{{label}} is too short to be valid!'}`
 
 - you may add complete Checkit validation rules to field with validations option::
 
-    StringField 'username', validations: [{rule: 'minLength:5'}]
+    :code:`StringField 'username', validations: [{rule: 'minLength:5'}]`
 
 .. _Checkit: https://github.com/tgriesser/checkit
